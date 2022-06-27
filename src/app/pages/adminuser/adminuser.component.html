@@ -1,0 +1,35 @@
+<h1 align="center" class="display-4 ">Users</h1>
+
+   
+    Search <input type = "text" name="search" [(ngModel)]="searchText" placeholder ="Enter Some Text To Search" />
+
+<table id="table" class="table table-striped text-center" style="width:100%;">
+    <thead>
+    <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Action</th>
+        
+    </tr>
+    </thead>
+    <!--Search by 
+    <select ng-model="columns" ng-options="e for e in headers">
+        <option value=""></option>
+    </select>
+    Search <input type = "text" ng-model ="Search[columns]" placeholder ="Enter Some Text To Search" />-->
+    <tbody>
+    <tr *ngFor="let user of page?.content | filter:searchText">
+        
+        <td class="align-middle">{{user.email}}</td>
+        <td class="align-middle">{{user.name}}</td>
+        <td class="align-middle">{{user.role}}</td>
+        <td class="align-middle">
+            <button  *ngIf="user.role=='ROLE_CUSTOMER'" (click)=addAdmin(user.email)  class="btn btn-success">Add Admin</button>
+            <button  *ngIf="user.role=='ROLE_MANAGER'" (click)=removeAdmin(user.email)  class="btn btn-success">Remove Admin</button>
+           <!-- <a  [ngClass]="{'isDisabled':'(productInfo.productStock >10)? true:false'}"style="display: block" class="isDisabled"  routerLink="/email">Email</a>-->
+        </td>
+
+    </tbody>
+</table>
+<app-pagination [currentPage]="page"></app-pagination>

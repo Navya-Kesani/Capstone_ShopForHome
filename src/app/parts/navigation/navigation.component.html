@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary" >
+    <a class="navbar-brand" [routerLink]="root">
+        <img hspace="5" boarder-radius="5px"src="https://thumbs.dreamstime.com/z/home-shopping-cart-logo-concept-design-shop-logotype-market-template-vector-157177899.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+        ShopForHome
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <div class="navbar-nav" *ngIf="!currentUser || currentUser.role == Role.Customer">
+
+            <a class="nav-item nav-link "
+               routerLink="/category/0">
+               Living Room
+            </a>
+            <a class="nav-item nav-link"
+               routerLink="/category/1">
+               Wall Decor
+            </a>
+            <a class="nav-item nav-link "
+               routerLink="/category/2">
+               Wall Art
+            </a>
+            <a class="nav-item nav-link"
+               routerLink="/category/3">
+               clocks
+            </a>
+
+           
+
+        </div>
+
+        
+
+        <div class="navbar-nav ml-auto">
+            <a *ngIf="!currentUser || currentUser.role == Role.Customer"
+                    class="nav-item nav-link " routerLink="/cart">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a>
+
+            <div class="navbar-nav" *ngIf="currentUser && currentUser.role == Role.Manager">
+
+                <a class="nav-item nav-link"  routerLink="/discount">Discount</a>
+                <a class="nav-item nav-link" (click)=getUsers() routerLink="/admin/user">Users</a>
+                <a class="nav-item nav-link" routerLink="/seller/product">Stocks</a>
+            </div>
+
+            <div class="navbar-nav" *ngIf="currentUser && currentUser.role == Role.Customer">
+                <a class="nav-item nav-link"  routerLink="/wishlist">Wishlist</a>
+            </div>
+
+            <ng-container *ngIf="currentUser; else noUser">
+                
+               <!-- <a class="nav-item nav-link"  routerLink="/discount">Discount</a>
+                <a class="nav-item nav-link" (click)=getUsers() routerLink="/admin/user">Users</a>
+                <a class="nav-item nav-link" routerLink="/seller/product">Stocks</a> -->
+                <a class="nav-item nav-link " routerLink="/order">
+                    <i class="fas fa-list-ul"></i>
+                    Orders
+                </a>
+                <a class="nav-item nav-link " routerLink="/profile">
+                    {{name}}
+                </a>
+                <a class="nav-item nav-link " (click)="logout()" routerLink="/login" [queryParams]="{logout: true}">
+                    Log Out
+                </a>
+            </ng-container>
+            <ng-template #noUser>
+                <a class="nav-item nav-link " routerLink="/login">
+                    Log In
+                </a>
+                <a class="nav-item nav-link " routerLink="/register">
+                    Register
+                </a>
+            </ng-template>
+            
+            </div>
+    </div>
+</nav>
